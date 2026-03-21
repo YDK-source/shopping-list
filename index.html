@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#4F7CF7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>רשימת הקניות של יוסי ומרים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --bg: #F5F7FA;
+  --surface: #FFFFFF;
+  --surface2: #F0F2F7;
+  --border: #E4E8F0;
+  --text: #1E2235;
+  --text2: #5C6380;
+  --text3: #9BA3BF;
+  --primary: #4F7CF7;
+  --primary-light: #EEF2FF;
+  --primary-dark: #3A5EC7;
+  --checked: #22C55E;
+  --checked-light: #F0FDF4;
+  --checked-dark: #16A34A;
+  --danger: #EF4444;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow: 0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+  --transition: all .18s ease;
+  --font: 'Heebo', sans-serif;
+  --header-h: 120px;
+  --filters-h: 56px;
+  --bottom-nav-h: 64px;
+}
+[data-theme="dark"] {
+  --bg: #0F1117;
+  --surface: #1A1E2C;
+  --surface2: #252A3A;
+  --border: #2E3348;
+  --text: #EEF0F7;
+  --text2: #9BA3BF;
+  --text3: #5C6380;
+  --primary-light: #1E2A4A;
+  --checked-light: #0D2818;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
+  --shadow: 0 4px 12px rgba(0,0,0,.4);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  direction: rtl;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+input { font-family: var(--font); }
+input:focus, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ===== LAYOUT ===== */
+.app-wrapper { display: flex; flex-direction: column; min-height: 100dvh; }
+
+/* ===== STICKY HEADER ===== */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: env(safe-area-inset-top, 0) 0 0;
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 8px;
+  gap: 12px;
+}
+.app-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  white-space: nowrap;
+}
+.app-title span { color: var(--primary); }
+.header-actions { display: flex; gap: 6px; align-items: center; }
+.icon-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  color: var(--text2);
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.icon-btn:hover { background: var(--primary-light); color: var(--primary); }
+.icon-btn.active { background: var(--primary); color: #fff; }
+
+/* Search Bar */
+.search-wrap {
+  padding: 0 16px 10px;
+  position: relative;
+}
+.search-wrap::before {
+  content: '🔍';
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  pointer-events: none;
+  margin-top: -5px;
+}
+.search-input {
+  width: 100%;
+  height: 42px;
+  border-radius: 22px;
+  border: 1.5px solid var(--border);
+  background: var(--surface2);
+  padding: 0 42px 0 40px;
+  font-size: 15px;
+  color: var(--text);
+  transition: var(--transition);
+  direction: rtl;
+}
+.search-input::placeholder { color: var(--text3); }
+.search-input:focus { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 3px rgba(79,124,247,.12); }
+.search-clear {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--text3);
+  color: #fff;
+  font-size: 12px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-top: -5px;
+}
+.search-clear.visible { display: flex; }
+
+/* ===== FILTERS BAR ===== */
+.filters-bar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 99;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.filters-scroll {
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.filters-scroll::-webkit-scrollbar { display: none; }
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.chip:hover { border-color: var(--primary); color: var(--primary); }
+.chip.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 600; }
+.chip-count {
+  background: rgba(255,255,255,.25);
+  color: inherit;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.chip:not(.active) .chip-count { background: var(--surface2); color: var(--text3); }
+
+/* ===== VIEW BAR ===== */
+.view-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  gap: 10px;
+}
+.view-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--surface2);
+  border-radius: 22px;
+  padding: 3px;
+}
+.view-tab {
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.view-tab.active { background: var(--surface); color: var(--text); font-weight: 700; box-shadow: var(--shadow-sm); }
+.sort-select {
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  direction: rtl;
+}
+.sort-select:focus { border-color: var(--primary); outline: none; }
+
+/* ===== STATS BAR ===== */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px 2px;
+}
+.stats-text {
+  font-size: 13px;
+  color: var(--text2);
+  font-weight: 500;
+}
+.stats-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--checked);
+  color: #fff;
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.bulk-actions { display: flex; gap: 6px; }
+.bulk-btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text3);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+.bulk-btn:hover { color: var(--primary); background: var(--primary-light); }
+.bulk-btn.danger:hover { color: var(--danger); background: #FEF2F2; }
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+  flex: 1;
+  padding: 12px 16px 24px;
+  padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 16px) + 16px);
+}
+
+/* Category sections */
+.category-section { margin-bottom: 8px; }
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.category-emoji {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.category-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+}
+.category-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--surface2);
+  color: var(--text2);
+}
+.category-badge.has-checked { background: var(--checked-light); color: var(--checked-dark); }
+.category-chevron {
+  font-size: 12px;
+  color: var(--text3);
+  transition: transform .2s ease;
+}
+.category-section.collapsed .category-chevron { transform: rotate(-90deg); }
+.category-section.collapsed .products-grid { display: none; }
+
+/* Products Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+/* Product Card */
+.product-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 3px;
+  height: 100%;
+  background: transparent;
+  transition: var(--transition);
+}
+.product-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.product-card.checked {
+  background: var(--checked-light);
+  border-color: #BBF7D0;
+}
+.product-card.checked::before { background: var(--checked); }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.card-img {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  background: var(--surface2);
+  transition: var(--transition);
+}
+.product-card.checked .card-img { background: #D1FAE5; }
+
+.card-text { flex: 1; min-width: 0; }
+.card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  word-break: break-word;
+  transition: var(--transition);
+}
+.product-card.checked .card-name { color: var(--checked-dark); }
+.card-cat {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-notes {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+.card-toggle {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  transition: var(--transition);
+  flex-shrink: 0;
+  color: transparent;
+}
+.product-card.checked .card-toggle {
+  background: var(--checked);
+  border-color: var(--checked);
+  color: #fff;
+}
+
+/* Quantity Controls */
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+}
+.qty-row.hidden { opacity: 0.3; pointer-events: none; }
+
+.qty-btn {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--surface2);
+  color: var(--text2);
+  font-size: 16px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.qty-btn:hover { background: var(--primary); color: #fff; }
+.product-card.checked .qty-btn { background: #BBF7D0; color: var(--checked-dark); }
+.product-card.checked .qty-btn:hover { background: var(--checked); color: #fff; }
+
+.qty-input {
+  width: 36px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 0;
+  -moz-appearance: textfield;
+}
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.qty-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 2px rgba(79,124,247,.15); }
+.product-card.checked .qty-input { border-color: #BBF7D0; background: var(--surface); }
+
+.qty-unit {
+  font-size: 11px;
+  color: var(--text3);
+  white-space: nowrap;
+  max-width: 36px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  gap: 12px;
+}
+.empty-state .emoji { font-size: 48px; }
+.empty-state h3 { font-size: 18px; font-weight: 700; color: var(--text); }
+.empty-state p { font-size: 14px; color: var(--text2); }
+
+/* ===== BOTTOM NAV (mobile) ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  box-shadow: 0 -4px 16px rgba(0,0,0,.06);
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px;
+  gap: 3px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-item:hover, .nav-item.active { color: var(--primary); }
+.nav-icon { font-size: 20px; position: relative; }
+.nav-label { font-size: 10px; font-weight: 600; color: var(--text3); }
+.nav-item.active .nav-label { color: var(--primary); }
+.nav-badge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  background: var(--checked);
+  color: #fff;
+  border-radius: 10px;
+  padding: 1px 5px;
+  font-size: 10px;
+  font-weight: 800;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* ===== SUMMARY MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 300;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn .2s ease;
+}
+.modal-overlay.hidden { display: none; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-sheet {
+  width: 100%;
+  max-height: 85dvh;
+  background: var(--surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp .25s ease;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.modal-handle {
+  width: 40px; height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 10px auto 0;
+  cursor: pointer;
+}
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-title { font-size: 18px; font-weight: 800; }
+.modal-close {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--surface2);
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2);
+  transition: var(--transition);
+}
+.modal-close:hover { background: var(--border); }
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  -webkit-overflow-scrolling: touch;
+}
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+}
+.btn {
+  flex: 1;
+  height: 46px;
+  border-radius: 23px;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-outline {
+  background: var(--surface2);
+  color: var(--text2);
+  border: 1.5px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Summary list */
+.summary-group { margin-bottom: 16px; }
+.summary-group-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text2);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 4px;
+  gap: 8px;
+}
+.summary-item-name { font-size: 14px; font-weight: 600; flex: 1; }
+.summary-item-qty {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 3px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-h) + 16px + env(safe-area-inset-bottom, 0));
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text);
+  color: var(--bg);
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all .3s ease;
+  z-index: 500;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ===== DESKTOP ===== */
+@media (min-width: 768px) {
+  :root { --header-h: 110px; --bottom-nav-h: 0px; }
+  .bottom-nav { display: none; }
+  .main-content { padding-bottom: 40px; max-width: 1200px; margin: 0 auto; }
+  .app-header { padding: 0 max(16px, calc(50vw - 600px)); }
+  .filters-bar { padding: 0 max(16px, calc(50vw - 600px)); }
+  .view-bar { padding: 10px max(16px, calc(50vw - 600px)); }
+  .stats-bar { padding: 6px max(16px, calc(50vw - 600px)) 2px; }
+  .main-content { padding: 16px max(16px, calc(50vw - 600px)) 40px; }
+  .products-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .modal-sheet { max-width: 560px; margin: auto; border-radius: var(--radius-lg); max-height: 80vh; }
+  .modal-overlay { align-items: center; }
+}
+@media (min-width: 1024px) {
+  .products-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ===== SHOPPING MODE ===== */
+body.shopping-mode .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+body.shopping-mode .product-card { padding: 14px 12px; }
+body.shopping-mode .card-img { width: 48px; height: 48px; font-size: 26px; }
+body.shopping-mode .card-name { font-size: 15px; }
+body.shopping-mode .qty-btn { width: 36px; height: 36px; font-size: 18px; }
+body.shopping-mode .qty-input { width: 40px; height: 36px; font-size: 16px; }
+@media (min-width: 768px) {
+  body.shopping-mode .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes checkPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.product-card.just-checked { animation: checkPop .25s ease; }
+
+@keyframes qtyPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.qty-input.pulse { animation: qtyPulse .18s ease; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ===== CONFIRM DIALOG ===== */
+.confirm-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 600;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.confirm-overlay.hidden { display: none; }
+.confirm-box {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 320px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: popIn .2s ease;
+}
+@keyframes popIn { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.confirm-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.confirm-text { font-size: 14px; color: var(--text2); margin-bottom: 20px; }
+.confirm-btns { display: flex; gap: 10px; }
+.confirm-btns .btn { font-size: 14px; height: 40px; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { background: #DC2626; }
+</style>
+</head>
+<body>
+<div class="app-wrapper">
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="app-title">🛒 <span>יוסי</span> ומרים</div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btn-shopping-mode" title="מצב קנייה">🛍️</button>
+        <button class="icon-btn" id="btn-darkmode" title="מצב לילה">🌙</button>
+        <button class="icon-btn" id="btn-summary" title="רשימת קנייה">📋</button>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <input type="search" class="search-input" id="search-input" placeholder="חיפוש מוצר..." autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="search-clear" id="search-clear">✕</button>
+    </div>
+  </header>
+
+  <!-- ===== FILTERS BAR ===== -->
+  <div class="filters-bar">
+    <div class="filters-scroll" id="filters-scroll">
+      <div class="chip active" data-cat="all">הכל</div>
+      <!-- category chips injected by JS -->
+    </div>
+  </div>
+
+  <!-- ===== VIEW / SORT BAR ===== -->
+  <div class="view-bar">
+    <div class="view-tabs">
+      <div class="view-tab active" data-view="all">כל המוצרים</div>
+      <div class="view-tab" data-view="checked">לקנות ✓</div>
+    </div>
+    <select class="sort-select" id="sort-select">
+      <option value="default">סדר קטגוריות</option>
+      <option value="alpha">א–ב</option>
+      <option value="checked">מסומנים ראשון</option>
+    </select>
+  </div>
+
+  <!-- ===== STATS BAR ===== -->
+  <div class="stats-bar">
+    <div class="stats-text">
+      <span id="stats-checked-count" class="stats-count">0 פריטים</span>
+      &nbsp;מסומנים
+    </div>
+    <div class="bulk-actions">
+      <button class="bulk-btn" id="btn-select-all">בחר הכל</button>
+      <button class="bulk-btn danger" id="btn-clear-all">נקה הכל</button>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content" id="main-content">
+    <!-- rendered by JS -->
+  </main>
+
+</div><!-- .app-wrapper -->
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav">
+  <div class="nav-item active" data-view="all" id="nav-all">
+    <div class="nav-icon">🏠</div>
+    <div class="nav-label">הכל</div>
+  </div>
+  <div class="nav-item" data-view="checked" id="nav-checked">
+    <div class="nav-icon">✅ <span class="nav-badge" id="nav-badge" style="display:none">0</span></div>
+    <div class="nav-label">לקנות</div>
+  </div>
+  <div class="nav-item" id="nav-cats">
+    <div class="nav-icon">🏷️</div>
+    <div class="nav-label">קטגוריות</div>
+  </div>
+  <div class="nav-item" id="nav-summary-btn">
+    <div class="nav-icon">📋</div>
+    <div class="nav-label">רשימה</div>
+  </div>
+</nav>
+
+<!-- ===== SUMMARY MODAL ===== -->
+<div class="modal-overlay hidden" id="summary-modal">
+  <div class="modal-sheet">
+    <div class="modal-handle" id="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">🛒 רשימת קנייה</div>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <!-- rendered by JS -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="btn-copy">📋 העתק</button>
+      <button class="btn btn-primary" id="btn-share">📤 שתף</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONFIRM DIALOG ===== -->
+<div class="confirm-overlay hidden" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirm-title">אישור</div>
+    <div class="confirm-text" id="confirm-text"></div>
+    <div class="confirm-btns">
+      <button class="btn btn-outline" id="confirm-cancel">ביטול</button>
+      <button class="btn btn-danger" id="confirm-ok">אישור</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const CATEGORIES = [
+  { id: 'fruits',   name: 'פירות, ירקות ועשבי תיבול', short: 'פירות וירקות', emoji: '🥦', color: '#22C55E' },
+  { id: 'dairy',    name: 'מוצרי חלב, בשר וביצים',  short: 'חלב ובשר',     emoji: '🥛', color: '#3B82F6' },
+  { id: 'sauces',   name: 'שמן, רטבים וממרחים',     short: 'רטבים',        emoji: '🫒', color: '#F59E0B' },
+  { id: 'bread',    name: 'לחם ואפייה',              short: 'לחם ואפייה',   emoji: '🍞', color: '#A78BFA' },
+  { id: 'drinks',   name: 'משקאות',                  short: 'משקאות',       emoji: '🥤', color: '#EC4899' },
+  { id: 'frozen',   name: 'מזון קפוא',               short: 'קפוא',         emoji: '🧊', color: '#06B6D4' },
+  { id: 'spices',   name: 'תבלינים',                 short: 'תבלינים',      emoji: '🌶️', color: '#EF4444' },
+  { id: 'canned',   name: 'שימורים',                 short: 'שימורים',      emoji: '🥫', color: '#F97316' },
+  { id: 'grains',   name: 'דגנים, פסטה וקטניות',    short: 'דגנים',        emoji: '🌾', color: '#EAB308' },
+  { id: 'sweets',   name: 'מתוקים ודגני בוקר',      short: 'מתוקים',       emoji: '🍫', color: '#8B5CF6' },
+  { id: 'cleaning', name: 'ניקיון ואחזקת הבית',     short: 'ניקיון',       emoji: '🧹', color: '#14B8A6' },
+  { id: 'misc',     name: 'שונות',                   short: 'שונות',        emoji: '📦', color: '#6B7280' },
+];
+
+const RAW = [
+  // פירות וירקות ועשבי תיבול
+  ['fruits','עגבניה',1,'יח\''],
+  ['fruits','מלפפון',1,'יח\''],
+  ['fruits','פלפל',1,'יח\''],
+  ['fruits','בצל',1,'יח\''],
+  ['fruits','גזר',1,'יח\''],
+  ['fruits','תפוחי אדמה',1,'ק"ג'],
+  ['fruits','קישוא',1,'יח\''],
+  ['fruits','שום',1,'ראש'],
+  ['fruits','פטריות טריות',1,'חבילה'],
+  ['fruits','בטטה',1,'יח\''],
+  ['fruits','לימון',5,'יח\''],
+  ['fruits','תפוח',1,'יח\''],
+  ['fruits','תמרים',1,'חבילה'],
+  ['fruits','אבוקדו',1,'יח\''],
+  ['fruits','בצל סגול',1,'יח\''],
+  ['fruits','ברוקולי',1,'יח\''],
+  ['fruits','ג\'ינג\'ר/זנגביל',1,'יח\''],
+  ['fruits','חסה בייבי',1,'שקית'],
+  ['fruits','בננה',1,'יח\''],
+  ['fruits','תותים',1,'קרטון'],
+  ['fruits','כרישה',1,'יח\''],
+  ['fruits','מרווה טרייה',1,'צרור'],
+  ['fruits','כרוב לבן',1,'יח\''],
+  ['fruits','דלעת',1,'יח\''],
+  ['fruits','סלרי',1,'יח\''],
+  ['fruits','עגבניות שרי צהובות',1,'קופסה'],
+  ['fruits','אגס',1,'יח\''],
+  ['fruits','חציל',1,'יח\''],
+  ['fruits','כרובית',1,'יח\''],
+  ['fruits','נענע טרייה',1,'צרור'],
+  ['fruits','מיקס עלי בייבי',1,'שקית'],
+  ['fruits','לבבות חסה',1,'יח\''],
+  ['fruits','אורוגולה',1,'שקית'],
+  ['fruits','בזיליקום טרי',1,'צרור'],
+  ['fruits','צנוברים (טריים)',1,'שקית'],
+  ['fruits','שמיר',1,'צרור'],
+  ['fruits','פטרוזיליה',1,'צרור'],
+  ['fruits','כוסברה',1,'צרור'],
+  ['fruits','אבטיח',1,'יח\''],
+  ['fruits','ענבים',1,'אשכול'],
+  ['fruits','מיני פלפלונים צבעוניים',1,'שקית'],
+  ['fruits','קישוא לממולאים',1,'יח\''],
+  ['fruits','קייל',1,'שקית'],
+  ['fruits','טימין',1,'צרור'],
+  ['fruits','חסה ערבית',1,'יח\''],
+  // מוצרי חלב, בשר וביצים
+  ['dairy','גבינת קשקוול',1,'יח\''],
+  ['dairy','גבינת עיזים קשה',1,'יח\''],
+  ['dairy','גבינת קוטג\'',1,'גביע'],
+  ['dairy','גבינה בולגרית/צפתית',1,'יח\''],
+  ['dairy','שמנת חמוצה',1,'גביע'],
+  ['dairy','גוש פרמז\'ן',1,'יח\''],
+  ['dairy','יוגורט',1,'גביע'],
+  ['dairy','ביצים',18,'יח\''],
+  ['dairy','חמאה',4,'יח\''],
+  ['dairy','גבינה לבנה',1,'גביע'],
+  ['dairy','גבינה צהובה מגוררת',1,'שקית'],
+  ['dairy','חלב',2,'קרטון'],
+  ['dairy','פסטרמה',1,'יח\''],
+  ['dairy','חזה עוף',1,'ק"ג'],
+  ['dairy','גבינת שמנת פילי',1,'יח\''],
+  ['dairy','שמנת לבישול',1,'קרטון'],
+  ['dairy','סלמון',1,'יח\''],
+  ['dairy','חלב סויה',1,'קרטון'],
+  ['dairy','טופו (משק צוריאל)',1,'יח\''],
+  ['dairy','בשר לחמין',1,'ק"ג'],
+  ['dairy','קוגלים',1,'יח\''],
+  ['dairy','גבינה כחולה/עובש',1,'יח\''],
+  ['dairy','טופו טחון',1,'יח\''],
+  // שמן, רטבים וממרחים
+  ['sauces','חזרת',1,'יח\''],
+  ['sauces','סלסה',1,'יח\''],
+  ['sauces','קטשופ היינץ',1,'בקבוק'],
+  ['sauces','חומץ',1,'בקבוק'],
+  ['sauces','שמן קנולה',1,'בקבוק'],
+  ['sauces','שמן זית',2,'בקבוק'],
+  ['sauces','שמן שומשום',1,'בקבוק'],
+  ['sauces','טחינה',1,'יח\''],
+  ['sauces','רוטב סויה',1,'בקבוק'],
+  ['sauces','חמאת בוטנים',1,'יח\''],
+  ['sauces','פסטו',2,'יח\''],
+  ['sauces','לימון כבוש',1,'יח\''],
+  ['sauces','סילאן',1,'יח\''],
+  ['sauces','ממרח חומוס',1,'יח\''],
+  ['sauces','סלט תפוחי אדמה',1,'יח\''],
+  ['sauces','מיץ לימון',1,'בקבוק'],
+  ['sauces','חרדל דיז\'ון',1,'יח\''],
+  ['sauces','ממרח עגבניות מיובשות',1,'יח\''],
+  ['sauces','ממרח ארטישוק',1,'יח\''],
+  ['sauces','טבסקו',1,'בקבוק'],
+  ['sauces','מיונז הלמנס',1,'יח\''],
+  ['sauces','חומץ בלסמי',1,'בקבוק'],
+  ['sauces','דבש',1,'יח\''],
+  ['sauces','תמצית וניל',1,'בקבוק'],
+  ['sauces','מטבוחה',1,'יח\''],
+  ['sauces','גוצ\'וג\'ן',1,'יח\''],
+  ['sauces','צ\'ילי קראנצ\'',1,'יח\''],
+  ['sauces','צ\'ימיצ\'ורי',1,'יח\''],
+  // לחם ואפייה
+  ['bread','שמרים',1,'יח\''],
+  ['bread','אבקת סודה לשתייה',1,'יח\''],
+  ['bread','אבקת קקאו',1,'חבילה'],
+  ['bread','פודינג',1,'יח\''],
+  ['bread','קפה',1,'יח\''],
+  ['bread','סוכרזית',1,'יח\''],
+  ['bread','סירופ מייפל אמיתי',1,'בקבוק'],
+  ['bread','אבקת אפייה',1,'יח\''],
+  ['bread','שוקולית',1,'יח\''],
+  ['bread','נוטלה/ממרח לוטוס',1,'יח\''],
+  ['bread','קמח',3,'ק"ג'],
+  ['bread','לחם פרוס',1,'כיכר'],
+  ['bread','לחמניות',1,'שקית'],
+  ['bread','לחמניות מלאות',1,'שקית'],
+  ['bread','פיתות',1,'שקית'],
+  ['bread','ג\'בטות/בגטים',1,'יח\''],
+  ['bread','שיבולת שועל',1,'חבילה'],
+  ['bread','לחם חום',1,'כיכר'],
+  ['bread','קמח כוסמין',1,'ק"ג'],
+  ['bread','פריכיות',1,'חבילה'],
+  ['bread','תה גלילי',1,'קופסה'],
+  ['bread','קפסולות קפה',1,'קופסה'],
+  ['bread','טאקו רך',1,'חבילה'],
+  // משקאות
+  ['drinks','תירוש',1,'בקבוק'],
+  ['drinks','שישיית בירה',1,'שישייה'],
+  ['drinks','שתייה מתוקה',1,'בקבוק'],
+  ['drinks','שישיית מים',1,'שישייה'],
+  ['drinks','מיץ תפוזים',1,'ליטר'],
+  ['drinks','יין חרמון לבן',2,'בקבוק'],
+  // מזון קפוא
+  ['frozen','איגלו',1,'חבילה'],
+  ['frozen','גלידה',1,'יח\''],
+  ['frozen','אפונה קפואה',1,'שקית'],
+  ['frozen','בצק עלים',1,'יח\''],
+  ['frozen','שניצל סויה דק (טבעול)',1,'חבילה'],
+  ['frozen','נקניקיות סויה',1,'חבילה'],
+  ['frozen','ארטישוק קפוא',1,'חבילה'],
+  ['frozen','גפילטע אושן גורמה',1,'יח\''],
+  ['frozen','שניצל תירס (טבעול)',1,'חבילה'],
+  ['frozen','אפונת שלג',1,'שקית'],
+  // תבלינים
+  ['spices','אורגנו',1,'יח\''],
+  ['spices','פלפל שחור מטחנה',1,'יח\''],
+  ['spices','פלפל שחור טחון',1,'יח\''],
+  ['spices','סוכר לבן',1,'ק"ג'],
+  ['spices','סוכר דמררה',1,'ק"ג'],
+  ['spices','מלח גס',1,'יח\''],
+  ['spices','אבקת מרק',1,'חבילה'],
+  ['spices','קארי (אבקה צהובה)',1,'יח\''],
+  ['spices','זרעי כוסברה',1,'יח\''],
+  ['spices','כמון',1,'יח\''],
+  ['spices','אגוז מוסקט',1,'יח\''],
+  ['spices','פפריקה מתוקה',1,'יח\''],
+  ['spices','עלי דפנה',1,'יח\''],
+  ['spices','שקדים חתוכים/פרוסים',1,'שקית'],
+  ['spices','פטרוזיליה מיובשת',1,'יח\''],
+  ['spices','כוסברה מיובשת',1,'יח\''],
+  ['spices','כורכום',1,'יח\''],
+  ['spices','בהרט',1,'יח\''],
+  ['spices','קוקוס טחון',1,'שקית'],
+  ['spices','שברי שוקולד',1,'שקית'],
+  ['spices','שום גבישי',1,'יח\''],
+  ['spices','מלח',1,'יח\''],
+  ['spices','קינמון טחון',1,'יח\''],
+  ['spices','פפריקה חריפה',1,'יח\''],
+  ['spices','משחת קארי צהוב',1,'יח\''],
+  ['spices','משחת קארי ירוק',1,'יח\''],
+  ['spices','מלח דק',1,'יח\''],
+  // שימורים
+  ['canned','זיתים קלמטה',1,'קופסה'],
+  ['canned','מלפפון חמוץ בחומץ',1,'יח\''],
+  ['canned','גרגירי חומוס',2,'קופסה'],
+  ['canned','גפילטע פיש',1,'יח\''],
+  ['canned','שימורי פטריות',1,'קופסה'],
+  ['canned','חלב קוקוס',1,'קופסה'],
+  ['canned','שימורי תירס',1,'קופסה'],
+  ['canned','שימורי שעועית',2,'קופסה'],
+  ['canned','רסק עגבניות',4,'קופסה'],
+  ['canned','עגבניות מרוסקות',1,'קופסה'],
+  ['canned','טונה',1,'קופסה'],
+  ['canned','סלסה (שימורים)',2,'קופסה'],
+  ['canned','חלפיניו כבוש',1,'יח\''],
+  ['canned','משחת מיסו',1,'יח\''],
+  // דגנים, פסטה וקטניות
+  ['grains','קינואה לבנה',1,'ק"ג'],
+  ['grains','אורז חום',1,'ק"ג'],
+  ['grains','עדשים כתומות',1,'ק"ג'],
+  ['grains','עדשים חומות/ירוקות',1,'ק"ג'],
+  ['grains','נודלס',1,'חבילה'],
+  ['grains','פתיתים/אטריות',1,'חבילה'],
+  ['grains','קוסקוס',4,'חבילה'],
+  ['grains','פסטה',4,'חבילה'],
+  ['grains','אורז לבן',1,'ק"ג'],
+  ['grains','דפי לזניה',1,'חבילה'],
+  ['grains','שעועית חומה',1,'ק"ג'],
+  ['grains','שעועית לבנה',1,'ק"ג'],
+  ['grains','גריסים',1,'ק"ג'],
+  ['grains','בורגול',1,'ק"ג'],
+  ['grains','שבבי סויה',1,'חבילה'],
+  ['grains','צנוברים (200 גרם)',200,'גרם'],
+  ['grains','חומוס יבש',1,'ק"ג'],
+  ['grains','פיסטוקים מלוחים',1,'שקית'],
+  ['grains','קוואקר',1,'חבילה'],
+  ['grains','ספגטי',1,'חבילה'],
+  // מתוקים ודגני בוקר
+  ['sweets','קורנפלקס תלמה',1,'קופסה'],
+  ['sweets','כריות',1,'קופסה'],
+  ['sweets','Life Cereal Quaker',1,'קופסה'],
+  ['sweets','שוקולד מריר לאפייה',1,'יח\''],
+  ['sweets','שוקולד מריר איכותי',1,'יח\''],
+  ['sweets','חטיפי אנרגיה',1,'חבילה'],
+  ['sweets','קשיו',1,'שקית'],
+  ['sweets','שקדים',1,'שקית'],
+  ['sweets','עוגיות',1,'חבילה'],
+  ['sweets','ממתקים',1,'שקית'],
+  ['sweets','פופקורן',1,'יח\''],
+  ['sweets','שערות חלווה',1,'יח\''],
+  ['sweets','מסטיקים',1,'חבילה'],
+  ['sweets','נאצ\'וס',1,'חבילה'],
+  ['sweets','במבה',1,'שקית'],
+  ['sweets','גרנולה',1,'חבילה'],
+  ['sweets','אגוזי מלך',1,'שקית'],
+  // ניקיון ואחזקת הבית
+  ['cleaning','מאסקינג טייפ',1,'יח\''],
+  ['cleaning','סבון כלים',1,'בקבוק'],
+  ['cleaning','סבון ידיים נוזלי',1,'בקבוק'],
+  ['cleaning','נייר טואלט',1,'חבילה'],
+  ['cleaning','כרית לניקוי כלים',1,'יח\''],
+  ['cleaning','סקוץ\'',1,'יח\''],
+  ['cleaning','טישו (חבילות) 3×5',1,'חבילה'],
+  ['cleaning','שקיות סנדוויץ\'/זיפלוק',1,'חבילה'],
+  ['cleaning','שקיות אשפה',1,'חבילה'],
+  ['cleaning','ספריי לניקוי משטחים וחלונות',1,'בקבוק'],
+  ['cleaning','סבון נצמד לאסלה',1,'יח\''],
+  ['cleaning','מסיר כתמים לכביסה',1,'יח\''],
+  ['cleaning','נייר אפייה',1,'גליל'],
+  ['cleaning','נייר אלומיניום',1,'גליל'],
+  ['cleaning','בטריות C+',1,'חבילה'],
+  ['cleaning','אבקת כביסה (מקסימה אפקט ז\'אבל)',1,'ק"ג'],
+  ['cleaning','מרכך כביסה בדין אקסטרה בייבי',1,'בקבוק'],
+  ['cleaning','כפפות גומי ללא אבקה',1,'זוג'],
+  ['cleaning','נר הבדלה',1,'יח\''],
+  ['cleaning','אטבי כביסה',1,'חבילה'],
+  ['cleaning','מנקה אסלה סנו',1,'יח\''],
+  ['cleaning','נורות',1,'יח\''],
+  ['cleaning','בטריות',1,'חבילה'],
+  ['cleaning','תבניות חד"פ לאפייה',1,'חבילה'],
+  ['cleaning','מטליות לספונג\'ה',1,'חבילה'],
+  ['cleaning','מגבונים לחים',1,'חבילה'],
+  ['cleaning','קיסמים',1,'קופסה'],
+  ['cleaning','חוט דנטלי',1,'יח\''],
+  ['cleaning','מצת למטבח',1,'יח\''],
+  ['cleaning','כלי לחמוצים',1,'יח\''],
+  ['cleaning','כוס לכביסה',1,'יח\''],
+  ['cleaning','כלי אחסון',1,'יח\''],
+  ['cleaning','נייר מגבת',1,'גליל'],
+  ['cleaning','סכו"ם',1,'חבילה'],
+  ['cleaning','אקונומיקה',1,'בקבוק'],
+  ['cleaning','צלחות חד"פ',1,'חבילה'],
+  ['cleaning','ניילון נצמד',1,'גליל'],
+  ['cleaning','מקלוני אוזניים',1,'קופסה'],
+  ['cleaning','סבון גוף פלמוליב',1,'בקבוק'],
+  ['cleaning','שמפו האד אנד שולדרס',1,'בקבוק'],
+  ['cleaning','משחת שיניים',1,'יח\''],
+  ['cleaning','ספוג',1,'יח\''],
+  ['cleaning','שמפו של קרליין',1,'בקבוק'],
+  ['cleaning','מרכך של קרליין',1,'בקבוק'],
+  ['cleaning','טמפונים',1,'חבילה'],
+  ['cleaning','סכיני גילוח',1,'חבילה'],
+  ['cleaning','תחבושות היגייניות',1,'חבילה'],
+  ['cleaning','K300',1,'יח\''],
+  ['cleaning','כוסות חד"פ לשתייה חמה 50',1,'חבילה'],
+  ['cleaning','כפיות חד"פ',1,'חבילה'],
+  ['cleaning','מסיר אבנית אנטי קאלק',1,'יח\''],
+  ['cleaning','קופסאות חד"פ עגולות',1,'חבילה'],
+  ['cleaning','מחזיק כרית ניקוי כלים',1,'יח\''],
+  ['cleaning','גפרורים',1,'קופסה'],
+  ['cleaning','מקל ספונג\'ה',1,'יח\''],
+  // שונות
+  ['misc','מצות',1,'קופסה'],
+  ['misc','קרוטונים',1,'חבילה'],
+  ['misc','גרנולה בריאות',1,'חבילה'],
+  ['misc','קניידלך כשלפ',4,'יח\''],
+  ['misc','תה ירוק מרווה',1,'קופסה'],
+  ['misc','טמפורה',1,'חבילה'],
+  ['misc','קרש חיתוך',1,'יח\''],
+  ['misc','נרות חנוכה',1,'קופסה'],
+  ['misc','מברשת שיניים',1,'יח\''],
+  ['misc','קרם ידיים',1,'יח\''],
+  ['misc','דגלי ישראל',1,'חבילה'],
+  ['misc','נר זיכרון',1,'יח\''],
+  ['misc','מברשת שיער',1,'יח\''],
+  ['misc','גומיות',1,'חבילה'],
+  ['misc','מנורה',1,'יח\''],
+  ['misc','משלוח מנות',1,'יח\''],
+  ['misc','קיסמי שיניים',1,'קופסה'],
+  ['misc','משטח ייבוש כלים',1,'יח\''],
+  ['misc','תחבושות (שונות)',1,'חבילה'],
+];
+
+// Build products array with unique IDs
+const PRODUCTS = RAW.map((r, i) => ({
+  id: i + 1,
+  category: r[0],
+  name: r[1],
+  defaultQty: r[2],
+  unit: r[3],
+}));
+
+// Category map
+const CAT_MAP = {};
+CATEGORIES.forEach(c => { CAT_MAP[c.id] = c; });
+
+// ============================================================
+// STATE
+// ============================================================
+const LS_KEY = 'yosi_maryam_list_v2';
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(LS_KEY));
+    if (s && s.items) return s;
+  } catch(e) {}
+  return {
+    items: {},
+    filter: { cat: 'all', view: 'all', sort: 'default' },
+    darkMode: false,
+    shoppingMode: false,
+  };
+}
+
+function saveState() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+const state = loadState();
+
+function getItem(id) {
+  if (!state.items[id]) {
+    const p = PRODUCTS.find(p => p.id === id);
+    state.items[id] = { checked: false, qty: p ? p.defaultQty : 1 };
+  }
+  return state.items[id];
+}
+
+// ============================================================
+// DOM HELPERS
+// ============================================================
+const $ = id => document.getElementById(id);
+const $$ = s => document.querySelectorAll(s);
+
+function showToast(msg, duration = 2000) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), duration);
+}
+
+function confirm(title, text, onOk) {
+  $('confirm-title').textContent = title;
+  $('confirm-text').textContent = text;
+  $('confirm-overlay').classList.remove('hidden');
+  $('confirm-ok').onclick = () => {
+    $('confirm-overlay').classList.add('hidden');
+    onOk();
+  };
+  $('confirm-cancel').onclick = () => $('confirm-overlay').classList.add('hidden');
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function getFilteredProducts() {
+  const { cat, view, sort } = state.filter;
+  const search = ($('search-input').value || '').trim().toLowerCase();
+
+  let list = PRODUCTS.filter(p => {
+    if (cat !== 'all' && p.category !== cat) return false;
+    if (view === 'checked' && !getItem(p.id).checked) return false;
+    if (search && !p.name.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  if (sort === 'alpha') list = [...list].sort((a,b) => a.name.localeCompare(b.name, 'he'));
+  else if (sort === 'checked') list = [...list].sort((a,b) => (getItem(b.id).checked ? 1 : 0) - (getItem(a.id).checked ? 1 : 0));
+
+  return list;
+}
+
+function renderCard(p) {
+  const item = getItem(p.id);
+  const cat = CAT_MAP[p.category];
+  const checked = item.checked;
+  const qty = item.qty;
+
+  return `<div class="product-card${checked ? ' checked' : ''}" data-id="${p.id}">
+    <div class="card-top">
+      <div class="card-img" style="background:${checked ? '' : cat.color}18">${cat.emoji}</div>
+      <div class="card-text">
+        <div class="card-name">${esc(p.name)}</div>
+        <div class="card-cat">${esc(cat.short)}</div>
+      </div>
+      <button class="card-toggle" data-action="toggle" data-id="${p.id}" aria-label="סמן לקנייה">${checked ? '✓' : ''}</button>
+    </div>
+    <div class="qty-row${!checked ? ' hidden' : ''}">
+      <button class="qty-btn" data-action="minus" data-id="${p.id}" aria-label="הפחת כמות">−</button>
+      <input class="qty-input" type="number" min="0" step="0.5" value="${qty}" data-id="${p.id}" aria-label="כמות" inputmode="decimal">
+      <span class="qty-unit">${esc(p.unit)}</span>
+      <button class="qty-btn" data-action="plus" data-id="${p.id}" aria-label="הוסף כמות">+</button>
+    </div>
+  </div>`;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function render() {
+  const list = getFilteredProducts();
+  const main = $('main-content');
+
+  if (list.length === 0) {
+    const { view } = state.filter;
+    const search = ($('search-input').value || '').trim();
+    main.innerHTML = `<div class="empty-state">
+      <div class="emoji">${search ? '🔍' : view === 'checked' ? '🛒' : '🥦'}</div>
+      <h3>${search ? 'לא נמצאו תוצאות' : view === 'checked' ? 'לא סומנו מוצרים' : 'אין מוצרים'}</h3>
+      <p>${search ? 'נסה חיפוש אחר' : view === 'checked' ? 'סמן מוצרים לקנייה' : ''}</p>
+    </div>`;
+    return;
+  }
+
+  const { sort } = state.filter;
+  const search = ($('search-input').value || '').trim().toLowerCase();
+
+  if (sort !== 'default' || search || state.filter.cat !== 'all') {
+    // Flat grid
+    main.innerHTML = `<div class="products-grid">${list.map(renderCard).join('')}</div>`;
+  } else {
+    // Grouped by category
+    const groups = {};
+    list.forEach(p => {
+      if (!groups[p.category]) groups[p.category] = [];
+      groups[p.category].push(p);
+    });
+
+    let html = '';
+    CATEGORIES.forEach(cat => {
+      const prods = groups[cat.id];
+      if (!prods || prods.length === 0) return;
+      const checkedInCat = prods.filter(p => getItem(p.id).checked).length;
+      const collapsed = state.collapsedCats && state.collapsedCats[cat.id];
+      html += `<div class="category-section${collapsed ? ' collapsed' : ''}" data-cat-section="${cat.id}">
+        <div class="category-header" data-cat-toggle="${cat.id}">
+          <div class="category-emoji" style="background:${cat.color}18">${cat.emoji}</div>
+          <div class="category-title">${esc(cat.name)}</div>
+          <div class="category-badge${checkedInCat > 0 ? ' has-checked' : ''}">${checkedInCat > 0 ? checkedInCat + '/' : ''}${prods.length}</div>
+          <div class="category-chevron">▾</div>
+        </div>
+        ${!collapsed ? `<div class="products-grid">${prods.map(renderCard).join('')}</div>` : ''}
+      </div>`;
+    });
+    main.innerHTML = html;
+  }
+
+  updateStats();
+}
+
+function updateStats() {
+  const checked = PRODUCTS.filter(p => getItem(p.id).checked);
+  const count = checked.length;
+  const totalQty = checked.reduce((s, p) => s + (parseFloat(getItem(p.id).qty) || 0), 0);
+
+  $('stats-checked-count').textContent = `${count} פריטים`;
+
+  const badge = $('nav-badge');
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = 'block';
+  } else {
+    badge.style.display = 'none';
+  }
+
+  // Update category chips counts
+  $$('.chip[data-cat]').forEach(chip => {
+    const catId = chip.dataset.cat;
+    const countEl = chip.querySelector('.chip-count');
+    if (!countEl) return;
+    if (catId === 'all') {
+      const tot = PRODUCTS.filter(p => getItem(p.id).checked).length;
+      countEl.textContent = tot || '';
+      countEl.style.display = tot > 0 ? '' : 'none';
+    } else {
+      const cat = PRODUCTS.filter(p => p.category === catId);
+      const c = cat.filter(p => getItem(p.id).checked).length;
+      countEl.textContent = c || '';
+      countEl.style.display = c > 0 ? '' : 'none';
+    }
+  });
+}
+
+function renderFilters() {
+  const scroll = $('filters-scroll');
+  let html = `<div class="chip${state.filter.cat === 'all' ? ' active' : ''}" data-cat="all">הכל <span class="chip-count" style="display:none">0</span></div>`;
+  CATEGORIES.forEach(cat => {
+    const count = PRODUCTS.filter(p => p.category === cat.id).length;
+    html += `<div class="chip${state.filter.cat === cat.id ? ' active' : ''}" data-cat="${cat.id}">${cat.emoji} ${esc(cat.short)} <span class="chip-count" style="display:none">0</span></div>`;
+  });
+  scroll.innerHTML = html;
+}
+
+// ============================================================
+// SUMMARY MODAL
+// ============================================================
+function renderSummary() {
+  const checked = PRODUCTS.filter(p => getItem(p.id).checked);
+  if (checked.length === 0) {
+    $('modal-body').innerHTML = `<div class="empty-state"><div class="emoji">🛒</div><h3>הרשימה ריקה</h3><p>סמן מוצרים ברשימה</p></div>`;
+    return;
+  }
+
+  const groups = {};
+  checked.forEach(p => {
+    if (!groups[p.category]) groups[p.category] = [];
+    groups[p.category].push(p);
+  });
+
+  let html = '';
+  CATEGORIES.forEach(cat => {
+    const prods = groups[cat.id];
+    if (!prods || prods.length === 0) return;
+    html += `<div class="summary-group">
+      <div class="summary-group-title">${cat.emoji} ${esc(cat.name)}</div>`;
+    prods.forEach(p => {
+      const item = getItem(p.id);
+      html += `<div class="summary-item">
+        <div class="summary-item-name">${esc(p.name)}</div>
+        <div class="summary-item-qty">${item.qty} ${esc(p.unit)}</div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  $('modal-body').innerHTML = html;
+}
+
+function getSummaryText() {
+  const checked = PRODUCTS.filter(p => getItem(p.id).checked);
+  if (checked.length === 0) return 'הרשימה ריקה';
+  let lines = ['🛒 רשימת קניות – יוסי ומרים', ''];
+  const groups = {};
+  checked.forEach(p => { if (!groups[p.category]) groups[p.category] = []; groups[p.category].push(p); });
+  CATEGORIES.forEach(cat => {
+    const prods = groups[cat.id];
+    if (!prods) return;
+    lines.push(`${cat.emoji} ${cat.name}`);
+    prods.forEach(p => {
+      const item = getItem(p.id);
+      lines.push(`  • ${p.name} – ${item.qty} ${p.unit}`);
+    });
+    lines.push('');
+  });
+  return lines.join('\n');
+}
+
+// ============================================================
+// EVENTS
+// ============================================================
+function handleCardAction(e) {
+  const btn = e.target.closest('[data-action]');
+  const input = e.target.closest('.qty-input');
+  const card = e.target.closest('.product-card');
+
+  if (!card) return;
+  const id = parseInt(card.dataset.id);
+  if (!id) return;
+
+  if (btn) {
+    const action = btn.dataset.action;
+    const item = getItem(id);
+    const p = PRODUCTS.find(p => p.id === id);
+
+    if (action === 'toggle') {
+      item.checked = !item.checked;
+      if (item.checked && !item.qty) item.qty = p.defaultQty || 1;
+      card.classList.toggle('checked', item.checked);
+      card.classList.add('just-checked');
+      setTimeout(() => card.classList.remove('just-checked'), 300);
+      const qtyRow = card.querySelector('.qty-row');
+      if (qtyRow) qtyRow.classList.toggle('hidden', !item.checked);
+      card.querySelector('.card-toggle').textContent = item.checked ? '✓' : '';
+      saveState();
+      updateStats();
+      return;
+    }
+
+    if (action === 'plus') {
+      item.qty = Math.round((parseFloat(item.qty) || 0) * 2 + 1) / 2;
+      updateQtyDisplay(id, item.qty);
+      saveState();
+      return;
+    }
+
+    if (action === 'minus') {
+      const newQty = Math.max(0, Math.round(((parseFloat(item.qty) || 0) - 1) * 2) / 2);
+      item.qty = newQty;
+      if (newQty === 0) { item.checked = false; saveState(); render(); return; }
+      updateQtyDisplay(id, item.qty);
+      saveState();
+      return;
+    }
+  }
+
+  if (input && input.dataset.id) {
+    const iid = parseInt(input.dataset.id);
+    const v = parseFloat(input.value);
+    if (!isNaN(v) && v >= 0) {
+      const item = getItem(iid);
+      item.qty = v;
+      if (v === 0) { item.checked = false; saveState(); render(); }
+      else { saveState(); }
+    }
+    return;
+  }
+}
+
+function updateQtyDisplay(id, qty) {
+  const card = document.querySelector(`.product-card[data-id="${id}"]`);
+  if (!card) return;
+  const inp = card.querySelector('.qty-input');
+  if (inp) {
+    inp.value = qty;
+    inp.classList.add('pulse');
+    setTimeout(() => inp.classList.remove('pulse'), 200);
+  }
+}
+
+// Bind main content events (delegation)
+$('main-content').addEventListener('click', handleCardAction);
+$('main-content').addEventListener('change', e => {
+  const input = e.target.closest('.qty-input');
+  if (!input) return;
+  const id = parseInt(input.dataset.id);
+  const v = parseFloat(input.value);
+  if (!isNaN(v) && id) {
+    const item = getItem(id);
+    item.qty = v;
+    if (v === 0) { item.checked = false; saveState(); render(); }
+    else { saveState(); }
+  }
+});
+
+// Touch: prevent double-fire on mobile for qty inputs
+$('main-content').addEventListener('touchstart', e => {
+  if (e.target.classList.contains('qty-input')) e.stopPropagation();
+}, { passive: true });
+
+// Search
+$('search-input').addEventListener('input', function() {
+  const clear = $('search-clear');
+  clear.classList.toggle('visible', this.value.length > 0);
+  render();
+});
+$('search-clear').addEventListener('click', () => {
+  $('search-input').value = '';
+  $('search-clear').classList.remove('visible');
+  render();
+});
+
+// Filters (delegated on filters-scroll)
+$('filters-scroll').addEventListener('click', e => {
+  const chip = e.target.closest('.chip[data-cat]');
+  if (!chip) return;
+  state.filter.cat = chip.dataset.cat;
+  $$('.chip[data-cat]').forEach(c => c.classList.toggle('active', c.dataset.cat === state.filter.cat));
+  saveState();
+  render();
+});
+
+// View tabs
+$$('.view-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    state.filter.view = this.dataset.view;
+    $$('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === state.filter.view));
+    $('nav-all').classList.toggle('active', state.filter.view === 'all');
+    $('nav-checked').classList.toggle('active', state.filter.view === 'checked');
+    saveState();
+    render();
+  });
+});
+
+// Sort
+$('sort-select').addEventListener('change', function() {
+  state.filter.sort = this.value;
+  saveState();
+  render();
+});
+
+// Category collapse (delegated on main-content)
+$('main-content').addEventListener('click', e => {
+  const hdr = e.target.closest('[data-cat-toggle]');
+  if (!hdr) return;
+  const catId = hdr.dataset.catToggle;
+  if (!state.collapsedCats) state.collapsedCats = {};
+  state.collapsedCats[catId] = !state.collapsedCats[catId];
+  saveState();
+  render();
+});
+
+// Bottom nav
+$('nav-all').addEventListener('click', () => {
+  state.filter.view = 'all';
+  $$('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === 'all'));
+  $('nav-all').classList.add('active');
+  $('nav-checked').classList.remove('active');
+  saveState(); render();
+});
+$('nav-checked').addEventListener('click', () => {
+  state.filter.view = 'checked';
+  $$('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === 'checked'));
+  $('nav-checked').classList.add('active');
+  $('nav-all').classList.remove('active');
+  saveState(); render();
+});
+$('nav-cats').addEventListener('click', () => {
+  $('filters-scroll').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+$('nav-summary-btn').addEventListener('click', openSummary);
+
+// Summary modal
+function openSummary() { renderSummary(); $('summary-modal').classList.remove('hidden'); }
+function closeSummary() { $('summary-modal').classList.add('hidden'); }
+$('btn-summary').addEventListener('click', openSummary);
+$('modal-close').addEventListener('click', closeSummary);
+$('modal-handle').addEventListener('click', closeSummary);
+$('summary-modal').addEventListener('click', e => { if (e.target === $('summary-modal')) closeSummary(); });
+
+$('btn-copy').addEventListener('click', () => {
+  const text = getSummaryText();
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showToast('✅ הועתק ללוח'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); showToast('✅ הועתק ללוח');
+  }
+});
+
+$('btn-share').addEventListener('click', () => {
+  const text = getSummaryText();
+  if (navigator.share) {
+    navigator.share({ title: 'רשימת קניות', text }).catch(() => {});
+  } else {
+    $('btn-copy').click();
+  }
+});
+
+// Header actions
+$('btn-darkmode').addEventListener('click', () => {
+  state.darkMode = !state.darkMode;
+  document.documentElement.dataset.theme = state.darkMode ? 'dark' : '';
+  $('btn-darkmode').classList.toggle('active', state.darkMode);
+  saveState();
+});
+
+$('btn-shopping-mode').addEventListener('click', () => {
+  state.shoppingMode = !state.shoppingMode;
+  document.body.classList.toggle('shopping-mode', state.shoppingMode);
+  $('btn-shopping-mode').classList.toggle('active', state.shoppingMode);
+  showToast(state.shoppingMode ? '🛍️ מצב קנייה פעיל' : 'מצב רגיל');
+  saveState();
+});
+
+// Bulk actions
+$('btn-select-all').addEventListener('click', () => {
+  confirm('בחר הכל', 'לסמן את כל המוצרים המוצגים כרגע לקנייה?', () => {
+    getFilteredProducts().forEach(p => {
+      const item = getItem(p.id);
+      item.checked = true;
+      if (!item.qty) item.qty = p.defaultQty || 1;
+    });
+    saveState(); render(); showToast('✅ כל המוצרים סומנו');
+  });
+});
+
+$('btn-clear-all').addEventListener('click', () => {
+  confirm('נקה הכל', 'לבטל את הסימון של כל המוצרים?', () => {
+    PRODUCTS.forEach(p => { const item = getItem(p.id); item.checked = false; });
+    saveState(); render(); showToast('🗑️ הרשימה נוקתה');
+  });
+});
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  // Apply saved state
+  if (state.darkMode) document.documentElement.dataset.theme = 'dark';
+  if (state.shoppingMode) document.body.classList.add('shopping-mode');
+  $('btn-darkmode').classList.toggle('active', !!state.darkMode);
+  $('btn-shopping-mode').classList.toggle('active', !!state.shoppingMode);
+  $('sort-select').value = state.filter.sort || 'default';
+  $$('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === state.filter.view));
+
+  renderFilters();
+  render();
+
+  // Initial filter chip state
+  $$('.chip[data-cat]').forEach(c => c.classList.toggle('active', c.dataset.cat === state.filter.cat));
+}
+
+init();
+</script>
+</body>
+</html>
