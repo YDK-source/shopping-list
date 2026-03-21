@@ -1,0 +1,42 @@
+{
+  "name": "רשימת הקניות שלי",
+  "short_name": "קניות",
+  "description": "ארגן את הקניות שלך בקלות ושתף עם בני הבית בזמן אמת",
+  "start_url": "/shopping-list/",
+  "scope": "/shopping-list/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F5F7FA",
+  "theme_color": "#4F7CF7",
+  "dir": "rtl",
+  "lang": "he",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "רשימה חדשה",
+      "short_name": "רשימה",
+      "description": "פתח את הרשימה הפעילה",
+      "url": "/shopping-list/",
+      "icons": [{ "src": "icon.svg", "sizes": "any" }]
+    }
+  ]
+}
