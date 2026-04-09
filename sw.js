@@ -1,5 +1,5 @@
 // Service Worker for רשימת הקניות שלי
-const CACHE_NAME = 'shopping-list-v2';
+const CACHE_NAME = 'shopping-list-v3';
 const CACHE_URLS = [
   '/shopping-list/',
   '/shopping-list/index.html',
