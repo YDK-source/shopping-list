@@ -676,6 +676,12 @@ input:focus, button:focus-visible { outline: 2px solid var(--primary); outline-o
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+/* ===== MOBILE HEADER FIX (מונע overflow ב-header) ===== */
+@media (max-width: 479px) {
+  #sync-status { display: none; }
+  .app-title { font-size: 15px; }
+}
+
 /* ===== DESKTOP ===== */
 @media (min-width: 768px) {
   :root { --header-h: 110px; --bottom-nav-h: 0px; }
